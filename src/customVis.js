@@ -32,7 +32,7 @@ element.append(visContainer)
 //am4core.addLicense("ch-custom-attribution");
 
 
-const allData = []
+
 
 
 
@@ -53,32 +53,31 @@ const allData = []
 
 
 
-//define values
-
-const grouping_dim = queryResponse.fields.dimensions[0].name;
-
-const plot_measure = queryResponse.fields.measures[0].name;
-
-console.log(grouping_dim)
-//carriers.name
-
-
-console.log(plot_measure)
-
-//flights.count
+    formattedData = []
 
 
 
-//push values
+    const grouping_dim = queryResponse.fields.dimensions[0].name;
 
-    data.forEach(function(d) {
-      allData.push({
-        country: d[grouping_dim]["value"],
+    const plot_measure = queryResponse.fields.measures[0].name;
 
-        count:d[plot_measure]["value"]
+    console.log(grouping_dim)
+    console.log(plot_measure)
+
+
+    data.forEach(function(data) {
+      formattedData.push({
+
+        country: data[grouping_dim]["value"],
+        count: data[plot_measure]["value"],
+
       });
 
+
+
     });
+
+
 
 
 
@@ -231,16 +230,14 @@ console.log(plot_measure)
 
 
 
-    yAxis.data.setAll(data);
-    series.data.setAll(data);
+    yAxis.data.setAll(formattedData);
+    series.data.setAll(formattedData);
 
 
     series.appear(1000);
     chart.appear(1000, 100);
 
     });
-
-
 
 
 doneRendering()
